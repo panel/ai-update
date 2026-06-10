@@ -121,10 +121,13 @@ github_trending:
   - language: typescript
     url: https://github.com/trending/typescript?since=weekly
 
-# X/Twitter via RSSHub. These fail often (rate limits); the fetcher treats
-# every handle as best-effort and skips failures silently.
+# X/Twitter. Templates are tried in order per handle; {handle} is substituted.
+# Public RSSHub twitter routes are dead (404 — now require authenticated
+# self-hosting), so nitter.net leads. All best-effort: failures skip quietly.
 twitter:
-  rsshub_base: https://rsshub.app/twitter/user
+  url_templates:
+    - https://nitter.net/{handle}/rss
+    - https://rsshub.app/twitter/user/{handle}
   handles:
     - bcherny
     - karpathy

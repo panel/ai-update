@@ -269,8 +269,17 @@ def fetch_github_trending(trend_cfg: dict) -> list[Item]:
     return items
 
 
-def fetch_twitter(handle: str, base: str, cutoff: datetime) -> list[Item]:
-    parsed = _fetch_and_parse(f"{base}/{handle}")
+def fetch_twitter(handle: str, templates: list[str], cutoff: datetime) -> list[Item]:
+    parsed = None
+    last_exc: Exception | None = None
+    for template in templates:
+        try:
+            parsed = _fetch_and_parse(template.format(handle=handle))
+            break
+        except Exception as e:  # noqa: BLE001 — try the next mirror
+            last_exc = e
+    if parsed is None:
+        raise last_exc or RuntimeError("no twitter sources configured")
     items = []
     for entry in parsed.entries[:8]:
         when = _entry_date(entry)
@@ -331,10 +340,25 @@ def fetch_all() -> list[Item]:
             log.warning("github trending %s failed: %s", trend_cfg["language"], e)
 
     tw = cfg.get("twitter", {})
+    templates = tw.get("url_templates", [])
+    tw_items, tw_ok, tw_failed = 0, 0, []
     for handle in tw.get("handles", []):
         try:
-            items.extend(fetch_twitter(handle, tw["rsshub_base"], cutoff))
+            fetched = fetch_twitter(handle, templates, cutoff)
+            items.extend(fetched)
+            tw_items += len(fetched)
+            tw_ok += 1
+            time.sleep(0.5)  # be polite to the nitter instance
         except Exception as e:  # noqa: BLE001
-            log.debug("twitter @%s failed (expected sometimes): %s", handle, e)
+            tw_failed.append(handle)
+            log.debug("twitter @%s failed: %s", handle, e)
+    if templates:
+        log.info(
+            "twitter: %d items from %d/%d handles%s",
+            tw_items,
+            tw_ok,
+            tw_ok + len(tw_failed),
+            f" (failed: {', '.join('@' + h for h in tw_failed)})" if tw_failed else "",
+        )
 
     return items
