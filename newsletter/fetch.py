@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import html
 import logging
+import random
 import re
 import time
 from dataclasses import dataclass, field
@@ -56,24 +57,68 @@ def _matches_keywords(entry, keywords) -> bool:
     return any(k.lower() in haystack for k in keywords)
 
 
-def _http_get(url: str, **kwargs) -> requests.Response:
-    resp = requests.get(
-        url,
-        headers={"User-Agent": config.USER_AGENT},
-        timeout=config.FETCH_TIMEOUT,
-        **kwargs,
-    )
-    resp.raise_for_status()
-    return resp
+# Some hosts (Substack especially) intermittently serve block pages to
+# non-browser user agents; a browser-like UA gets far fewer of them.
+BROWSER_UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+)
+
+# Literal control characters are the most common cause of feedparser's
+# "not well-formed (invalid token)" on otherwise-valid feeds.
+_XML_ILLEGAL = re.compile(rb"[\x00-\x08\x0b\x0c\x0e-\x1f]")
+
+RETRIES = 3
+
+
+def _http_get(url: str, browser_ua: bool = False, **kwargs) -> requests.Response:
+    last_exc: Exception | None = None
+    for attempt in range(RETRIES):
+        try:
+            resp = requests.get(
+                url,
+                headers={"User-Agent": BROWSER_UA if browser_ua else config.USER_AGENT},
+                timeout=config.FETCH_TIMEOUT,
+                **kwargs,
+            )
+            # Retry transient server-side statuses; fail fast on real 4xx.
+            if resp.status_code in (429, 500, 502, 503, 504):
+                raise requests.HTTPError(f"{resp.status_code} (transient)", response=resp)
+            resp.raise_for_status()
+            return resp
+        except (requests.ConnectionError, requests.Timeout, requests.HTTPError) as e:
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            if status is not None and status not in (429, 500, 502, 503, 504):
+                raise  # genuine client error — retrying won't help
+            last_exc = e
+            if attempt < RETRIES - 1:
+                time.sleep(2 ** attempt + random.uniform(0, 1))
+    raise last_exc  # type: ignore[misc]
+
+
+def _fetch_and_parse(url: str):
+    """Fetch a feed with retries and parse it, tolerating common defects."""
+    resp = _http_get(url, browser_ua=True)
+    content = resp.content
+    parsed = feedparser.parse(content)
+    if parsed.bozo and not parsed.entries:
+        # Last resort: strip illegal control chars and re-parse.
+        cleaned = _XML_ILLEGAL.sub(b"", content)
+        reparsed = feedparser.parse(cleaned)
+        if reparsed.entries:
+            return reparsed
+        ctype = resp.headers.get("content-type", "?")
+        snippet = content[:120].decode("utf-8", "replace")
+        raise RuntimeError(
+            f"feed unparseable (http {resp.status_code}, {ctype}): "
+            f"{parsed.bozo_exception} — starts with: {snippet!r}"
+        )
+    return parsed
 
 
 def fetch_feed(feed_cfg: dict, cutoff: datetime) -> list[Item]:
     name = feed_cfg["name"]
-    parsed = feedparser.parse(
-        feed_cfg["url"], agent=config.USER_AGENT, request_headers={}
-    )
-    if parsed.bozo and not parsed.entries:
-        raise RuntimeError(f"feed unparseable: {parsed.bozo_exception}")
+    parsed = _fetch_and_parse(feed_cfg["url"])
 
     keywords = feed_cfg.get("keyword_filter")
     max_items = feed_cfg.get("max_items", config.MAX_ITEMS_PER_SOURCE)
@@ -142,11 +187,7 @@ def _reddit_rss_fallback(sub_cfg: dict, cutoff: datetime) -> list[Item]:
     """Reddit blocks JSON for unauthenticated bots fairly often; the RSS feed
     is more permissive but carries no scores, so take the top few hot posts."""
     sub = sub_cfg["subreddit"]
-    parsed = feedparser.parse(
-        f"https://www.reddit.com/r/{sub}/hot/.rss", agent=config.USER_AGENT
-    )
-    if parsed.bozo and not parsed.entries:
-        raise RuntimeError("reddit RSS also unavailable")
+    parsed = _fetch_and_parse(f"https://www.reddit.com/r/{sub}/hot/.rss")
     items = []
     for entry in parsed.entries:
         when = _entry_date(entry)
@@ -229,9 +270,7 @@ def fetch_github_trending(trend_cfg: dict) -> list[Item]:
 
 
 def fetch_twitter(handle: str, base: str, cutoff: datetime) -> list[Item]:
-    parsed = feedparser.parse(f"{base}/{handle}", agent=config.USER_AGENT)
-    if parsed.bozo and not parsed.entries:
-        raise RuntimeError("RSSHub unavailable")
+    parsed = _fetch_and_parse(f"{base}/{handle}")
     items = []
     for entry in parsed.entries[:8]:
         when = _entry_date(entry)
