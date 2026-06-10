@@ -19,18 +19,18 @@ EMAIL_TEMPLATE = """\
 <head>
 <meta charset="utf-8">
 <style>
-  body {{ margin: 0; padding: 0; background: #f6f1e7; }}
+  body {{ margin: 0; padding: 0; background: #e5ebe3; }}
   .sheet {{
     max-width: 660px; margin: 0 auto; padding: 36px 28px 48px;
-    background: #fbf7ee; color: #2b2620;
+    background: #f3f6f1; color: #1c211d;
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 17px; line-height: 1.65;
   }}
   h1 {{ font-size: 34px; line-height: 1.12; font-weight: 800; margin: 8px 0 6px;
        letter-spacing: -0.01em; }}
-  h1 + p {{ font-size: 19px; line-height: 1.45; color: #564c3e; }}
+  h1 + p {{ font-size: 19px; line-height: 1.45; color: #49544d; }}
   h2 {{ font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase;
-       font-weight: 800; border-top: 3px solid #211c16;
+       font-weight: 800; border-top: 3px solid #1c211d;
        padding-top: 10px; margin: 38px 0 14px; }}
   h3 {{ font-size: 22px; font-weight: 700; font-style: normal; margin: 26px 0 8px; }}
   h2:first-of-type + p::first-letter {{
@@ -38,12 +38,12 @@ EMAIL_TEMPLATE = """\
     padding: 3px 7px 0 0; color: #1f6e5c;
   }}
   a {{ color: #2a5b7d; }}
-  em {{ color: #5a5044; }}
+  em {{ color: #49544d; }}
   li {{ margin-bottom: 8px; }}
   .meta {{ font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
-          color: #8a7c66; margin-bottom: 4px; }}
-  .footer {{ margin-top: 44px; padding-top: 14px; border-top: 1px solid #cdbfa5;
-            font-size: 13px; color: #8a7c66; font-style: italic; }}
+          color: #74817a; margin-bottom: 4px; }}
+  .footer {{ margin-top: 44px; padding-top: 14px; border-top: 1px solid #c2ccc3;
+            font-size: 13px; color: #74817a; font-style: italic; }}
 </style>
 </head>
 <body>

@@ -3,13 +3,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&display=swap');
 
 :root {
-  --paper: #fbf7ee;
-  --paper-deep: #f4efe3;
-  --ink: #211c16;
-  --ink-soft: #564c3e;
-  --ink-faint: #8a7c66;
-  --rule: #cdbfa5;
-  --rule-heavy: #211c16;
+  --paper: #f3f6f1;         /* cool sage-white stock */
+  --paper-deep: #e5ebe3;
+  --ink: #1c211d;
+  --ink-soft: #49544d;
+  --ink-faint: #74817a;
+  --rule: #c2ccc3;
+  --rule-heavy: #1c211d;
   --accent: #1f6e5c;        /* deep forest teal — drop cap, hovers */
   --accent-blue: #2a5b7d;   /* slate blue — links */
   --display: 'Fraunces', Georgia, serif;
@@ -34,7 +34,7 @@ body {
   line-height: 1.68;
   text-rendering: optimizeLegibility;
   font-feature-settings: 'liga', 'kern', 'onum';
-  box-shadow: 0 0 60px rgba(90, 70, 40, 0.10);
+  box-shadow: 0 0 60px rgba(40, 65, 55, 0.10);
   min-height: 100vh;
 }
 
