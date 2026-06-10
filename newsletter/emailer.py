@@ -26,12 +26,18 @@ EMAIL_TEMPLATE = """\
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 17px; line-height: 1.65;
   }}
-  h1 {{ font-size: 30px; line-height: 1.2; font-weight: normal; margin: 8px 0 4px; }}
-  h2 {{ font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase;
-       font-weight: normal; border-bottom: 1px solid #cdbfa5;
-       padding-bottom: 6px; margin: 36px 0 14px; }}
-  h3 {{ font-size: 20px; font-weight: normal; font-style: italic; margin: 24px 0 8px; }}
-  a {{ color: #7a4a21; }}
+  h1 {{ font-size: 34px; line-height: 1.12; font-weight: 800; margin: 8px 0 6px;
+       letter-spacing: -0.01em; }}
+  h1 + p {{ font-size: 19px; line-height: 1.45; color: #564c3e; }}
+  h2 {{ font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase;
+       font-weight: 800; border-top: 3px solid #211c16;
+       padding-top: 10px; margin: 38px 0 14px; }}
+  h3 {{ font-size: 22px; font-weight: 700; font-style: normal; margin: 26px 0 8px; }}
+  h2:first-of-type + p::first-letter {{
+    font-size: 56px; line-height: 0.85; font-weight: 800; float: left;
+    padding: 3px 7px 0 0; color: #1f6e5c;
+  }}
+  a {{ color: #2a5b7d; }}
   em {{ color: #5a5044; }}
   li {{ margin-bottom: 8px; }}
   .meta {{ font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
