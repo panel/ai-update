@@ -1,0 +1,6 @@
+anthropic>=0.95
+feedparser>=6.0
+requests>=2.31
+beautifulsoup4>=4.12
+PyYAML>=6.0
+markdown>=3.6

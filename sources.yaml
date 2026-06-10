@@ -1,0 +1,142 @@
+# Source configuration for the AI newsletter.
+# Derived from docs/sources-manifest.md — edit that file for notes/rationale,
+# edit this file to change what actually gets fetched.
+
+feeds:
+  # --- Individual writers & thinkers ---
+  - name: Simon Willison
+    url: https://simonwillison.net/atom/everything/
+    category: writer
+  - name: Kent Beck
+    url: https://tidyfirst.substack.com/feed
+    category: writer
+  - name: Ethan Mollick (One Useful Thing)
+    url: https://www.oneusefulthing.org/feed
+    category: writer
+  - name: Nathan Lambert (Interconnects)
+    url: https://www.interconnects.ai/feed
+    category: writer
+  - name: Sebastian Raschka (Ahead of AI)
+    url: https://magazine.sebastianraschka.com/feed
+    category: writer
+  - name: Zvi Mowshowitz
+    url: https://thezvi.substack.com/feed
+    category: writer
+  - name: Eugene Yan
+    url: https://eugeneyan.com/rss/
+    category: writer
+  - name: swyx
+    url: https://www.swyx.io/rss.xml
+    category: writer
+
+  # --- Newsletters & publications ---
+  - name: Every
+    url: https://every.to/feeds/58d892e7e1b77cde03cc.xml
+    category: publication
+  - name: Latent Space
+    url: https://www.latent.space/feed
+    category: publication
+  - name: "Lenny's Newsletter"
+    url: https://www.lennysnewsletter.com/feed
+    category: publication
+    keyword_filter:
+      - AI
+      - LLM
+      - agent
+      - model
+      - automation
+      - copilot
+      - artificial intelligence
+  - name: Import AI
+    url: https://importai.substack.com/feed
+    category: publication
+  # Official Batch feed is gone; community mirror (Olshansk/rss-feeds) is current.
+  - name: The Batch
+    url: https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_the_batch.xml
+    category: publication
+
+  # --- Lab & company blogs ---
+  # Anthropic/Meta/Mistral don't publish working RSS; Olshansk mirrors do.
+  - name: Anthropic
+    url: https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml
+    category: lab
+  - name: OpenAI
+    url: https://openai.com/blog/rss.xml
+    category: lab
+  - name: Google DeepMind
+    url: https://deepmind.google/blog/feed/basic/
+    category: lab
+  - name: Meta AI
+    url: https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_meta_ai.xml
+    category: lab
+  - name: Mistral
+    url: https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_mistral.xml
+    category: lab
+  - name: Hugging Face
+    url: https://huggingface.co/blog/feed.xml
+    category: lab
+
+  # --- Trend detection ---
+  # (Hugging Face Papers uses the JSON API — see hf_papers below, not a feed)
+  - name: Hacker News (AI, 100+ points)
+    url: https://hnrss.org/newest?q=AI&points=100
+    category: trend
+  - name: Hacker News front page
+    url: https://hnrss.org/frontpage
+    category: trend
+    keyword_filter:
+      - AI
+      - LLM
+      - GPT
+      - Claude
+      - Gemini
+      - agent
+      - model
+      - transformer
+      - inference
+      - fine-tun
+      - open-weight
+      - llama
+      - mistral
+  - name: Product Hunt (AI)
+    url: https://www.producthunt.com/feed?category=artificial-intelligence
+    category: trend
+    max_items: 10
+
+hf_papers:
+  max_items: 8
+  min_upvotes: 10
+
+reddit:
+  - subreddit: LocalLLaMA
+    min_score: 100
+    max_items: 12
+  - subreddit: MachineLearning
+    min_score: 200
+    max_items: 10
+
+github_trending:
+  - language: python
+    url: https://github.com/trending/python?since=weekly
+  - language: typescript
+    url: https://github.com/trending/typescript?since=weekly
+
+# X/Twitter via RSSHub. These fail often (rate limits); the fetcher treats
+# every handle as best-effort and skips failures silently.
+twitter:
+  rsshub_base: https://rsshub.app/twitter/user
+  handles:
+    - bcherny
+    - karpathy
+    - alexalbert__
+    - _jasonwei
+    - fchollet
+    - jeremyphoward
+    - rasbt
+    - swyx
+    - natfriedman
+    - danielgross
+    - samaltman
+    - gdb
+    - miramurati
+    - karinanguyen_

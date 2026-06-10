@@ -1,0 +1,55 @@
+name: Newsletter
+
+on:
+  schedule:
+    # Sunday and Wednesday at 13:00 UTC (~8am ET / 5am PT)
+    - cron: "0 13 * * 0,3"
+  workflow_dispatch:
+    inputs:
+      no_email:
+        description: "Publish only, skip the email"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: newsletter
+  cancel-in-progress: false
+
+jobs:
+  edition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Generate edition
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          SITE_BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: |
+          python -m newsletter.main ${{ inputs.no_email && '--no-email' || '' }}
+
+      - name: Commit edition
+        run: |
+          git config user.name "newsletter-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/ data/
+          if git diff --cached --quiet; then
+            echo "No changes to commit (edition skipped)."
+          else
+            git commit -m "Edition $(date -u +%F)"
+            git push
+          fi
