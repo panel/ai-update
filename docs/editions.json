@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-06-14",
+    "title": "The Weekend the Frontier Got Nationalized",
+    "standfirst": "Anthropic shipped the best coding model anyone had seen, then the US government switched it off \u2014 a reminder that model access is now an instrument of state, not a SaaS contract.",
+    "date": "2026-06-14"
+  },
+  {
     "slug": "2026-06-10",
     "title": "Beeg Model Smell",
     "standfirst": "Anthropic dropped Claude Fable 5 and the people who build coding agents for a living are uninstalling their IDEs again \u2014 meanwhile the labs are openly fighting about whether the frontier should be allowed to improve itself.",
