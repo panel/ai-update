@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import json
 import logging
+import re
 from datetime import date
+from pathlib import Path
 
 import anthropic
 
@@ -21,6 +24,10 @@ tools, workflows, models, or mental models coming onto the scene.
 Editorial principles:
 - Organize by TRENDS and THEMES, never by source or article. Synthesize: when \
 three sources circle the same idea, name the idea and connect them.
+- When a summary of the previous edition is provided, treat those themes as \
+already covered. Only return to them if this period contains a genuinely \
+significant new development — and if so, frame it as an update, not a \
+re-introduction.
 - Every theme and every claim must link out so the reader can jump off and go \
 deeper. Use inline markdown links on meaningful phrases, not bare URLs.
 - Separate signal from noise. Skip press releases, marketing, and incremental \
@@ -60,6 +67,41 @@ Rules:
 - If the period is genuinely quiet, say so honestly and keep it short."""
 
 
+def _previous_edition_context(docs_dir: Path) -> str | None:
+    index_path = docs_dir / "editions.json"
+    if not index_path.exists():
+        return None
+    index = json.loads(index_path.read_text())
+    if not index:
+        return None
+    latest = index[0]  # most recent first
+    md_path = docs_dir / "editions" / f"{latest['slug']}.md"
+    if not md_path.exists():
+        return None
+    text = md_path.read_text()
+
+    # Extract title (first # line)
+    title_match = re.search(r"^# (.+)$", text, re.MULTILINE)
+    title = title_match.group(1) if title_match else latest.get("title", "")
+
+    # Extract standfirst (first *…* block)
+    stand_match = re.search(r"^\*(.+?)\*$", text, re.MULTILINE)
+    standfirst = stand_match.group(1) if stand_match else ""
+
+    # Extract theme headings under ## Themes
+    themes_match = re.search(r"^## Themes\n(.*?)(?=^## |\Z)", text, re.MULTILINE | re.DOTALL)
+    themes: list[str] = []
+    if themes_match:
+        themes = re.findall(r"^### (.+)$", themes_match.group(1), re.MULTILINE)
+
+    lines = [f'Previous edition — "{title}" ({latest["date"]})']
+    if standfirst:
+        lines.append(f"Standfirst: {standfirst}")
+    if themes:
+        lines.append("Themes covered: " + " · ".join(themes))
+    return "\n".join(lines)
+
+
 def _format_items(items: list[Item]) -> str:
     by_category: dict[str, list[Item]] = {}
     for item in items:
@@ -93,10 +135,18 @@ def _format_items(items: list[Item]) -> str:
     return "\n\n".join(blocks)
 
 
-def _build_messages(items: list[Item], edition_date: date) -> list[dict]:
+def _build_messages(
+    items: list[Item], edition_date: date, prev_context: str | None = None
+) -> list[dict]:
     corpus = _format_items(items)
+    prev_block = (
+        f"--- PREVIOUS EDITION SUMMARY ---\n{prev_context}\n--- END PREVIOUS EDITION ---\n\n"
+        if prev_context
+        else ""
+    )
     user_msg = (
         f"Edition date: {edition_date.strftime('%A, %B %-d, %Y')}\n"
+        f"{prev_block}"
         f"Source material ({len(items)} items collected since the last "
         f"edition):\n\n{corpus}\n\nWrite the edition."
     )
@@ -118,9 +168,11 @@ def estimate_cost(client: anthropic.Anthropic, messages: list[dict]) -> float:
     return input_cost + output_cost
 
 
-def synthesize(items: list[Item], edition_date: date) -> str:
+def synthesize(
+    items: list[Item], edition_date: date, prev_context: str | None = None
+) -> str:
     client = anthropic.Anthropic()
-    messages = _build_messages(items, edition_date)
+    messages = _build_messages(items, edition_date, prev_context)
 
     cost = estimate_cost(client, messages)
     if cost > config.MAX_RUN_COST_USD:
