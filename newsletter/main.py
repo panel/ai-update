@@ -6,12 +6,13 @@ import argparse
 import logging
 import sys
 from datetime import date
+from pathlib import Path
 
 from . import config, dedupe
 from .emailer import send_edition
 from .fetch import fetch_all
 from .render import markdown_to_html, write_edition
-from .synthesize import synthesize
+from .synthesize import _previous_edition_context, synthesize
 
 log = logging.getLogger(__name__)
 
@@ -43,7 +44,12 @@ def run(send_email: bool = True, dry_run: bool = False) -> None:
         log.info("dry run — stopping before synthesis")
         return
 
-    markdown_text = synthesize(items, edition_date)
+    docs_dir = Path(__file__).parent.parent / "docs"
+    prev_context = _previous_edition_context(docs_dir)
+    if prev_context:
+        log.info("including previous edition context for deduplication")
+
+    markdown_text = synthesize(items, edition_date, prev_context=prev_context)
 
     meta = write_edition(markdown_text, edition_date)
     log.info("published edition: %s — %s", meta["slug"], meta["title"])
