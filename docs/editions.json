@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-06-24",
+    "title": "The Pentester in the Loop",
+    "standfirst": "Both frontier labs shipped security products the same week a paper confirmed their models can't tell their own thoughts from an attacker's. Meanwhile Claude moved into your Slack channels \u2014 and the bill for all of it came due.",
+    "date": "2026-06-24"
+  },
+  {
     "slug": "2026-06-21",
     "title": "The Weights We Don't Own",
     "standfirst": "GLM-5.2 makes the open frontier real the same week a government switches off a model thousands depend on. The two stories are the same story.",
