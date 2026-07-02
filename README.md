@@ -14,7 +14,7 @@ workflows, or mental models.
 fetch (RSS / Reddit / GitHub Trending / RSSHub)
   → dedupe against data/seen.json
   → synthesize one edition with Claude Opus 4.8
-  → publish docs/editions/<date>.html + update docs/index.html
+  → publish docs/editions/<date>.html + update docs/index.html + docs/feed.xml
   → email via Gmail SMTP
   → commit docs/ + data/ back to main
 ```
@@ -26,6 +26,10 @@ fetch (RSS / Reddit / GitHub Trending / RSSHub)
   [config.py](newsletter/config.py)). A typical run costs ~$1–2.
 - Flaky sources (RSSHub/Twitter especially) are best-effort — failures are
   logged and skipped, never fatal.
+- **RSS feed:** [docs/feed.xml](docs/feed.xml) carries the last 20 editions
+  (full content) and is linked from the site header. It's regenerated on
+  every run and requires `SITE_BASE_URL` to be set (already the case in CI);
+  it's skipped in local runs without that env var.
 
 ## One-time setup
 
