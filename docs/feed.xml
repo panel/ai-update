@@ -2,15 +2,62 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <title>AI Update</title>
-<link>https://panel1382.github.io/ai-update/</link>
-<atom:link href="https://panel1382.github.io/ai-update/feed.xml" rel="self" type="application/rss+xml"/>
+<link>https://panel.github.io/ai-update/</link>
+<atom:link href="https://panel.github.io/ai-update/feed.xml" rel="self" type="application/rss+xml"/>
 <description>Trends, techniques, tools &amp; mental models in AI — Sundays &amp; Wednesdays</description>
 <language>en</language>
-<lastBuildDate>Thu, 02 Jul 2026 00:39:35 +0000</lastBuildDate>
+<lastBuildDate>Sun, 05 Jul 2026 14:51:26 +0000</lastBuildDate>
+<item>
+<title>The Model Grows Into Its Harness</title>
+<link>https://panel.github.io/ai-update/editions/2026-07-05.html</link>
+<guid isPermaLink="true">https://panel.github.io/ai-update/editions/2026-07-05.html</guid>
+<pubDate>Sun, 05 Jul 2026 00:00:00 +0000</pubDate>
+<description>The frontier is getting measurably better at exactly one thing — the tool it was trained inside — just as agents start learning memory and skills as trainable habits, and the bills finally come due.</description>
+<content:encoded><![CDATA[<h1>The Model Grows Into Its Harness</h1>
+<p><em>The frontier is getting measurably better at exactly one thing — the tool it was trained inside — just as agents start learning memory and skills as trainable habits, and the bills finally come due.</em></p>
+<h2>The Big Picture</h2>
+<p>The most useful thing to land this week wasn&rsquo;t a model or a benchmark; it was a diagnosis. Armin Ronacher noticed that Anthropic&rsquo;s newest models — Opus 4.8, Sonnet 5 — are <em>worse</em> than their predecessors at driving his custom edit tool, inventing schema keys the tool then rejects. His theory, and it&rsquo;s a good one: these models have been RL-trained to excel at the specific edit tools baked into Claude Code, and that specialization actively degrades their behavior in foreign harnesses. If that&rsquo;s right, &ldquo;which model is best&rdquo; is no longer a question you can answer independently of &ldquo;in which harness.&rdquo; The frontier is optimizing for its home turf, and everyone building an alternative agent loop is now downstream of that decision.</p>
+<p>That coupling is showing up elsewhere as a reliability story: a widely-read <a href="https://github.com/openai/codex/issues/30364">Codex issue</a> alleging that GPT-5.5&rsquo;s reasoning-token clustering silently degrades performance, and a &ldquo;short leash&rdquo; method making the rounds precisely because people can no longer trust a capable model to run unsupervised. The mental model to carry forward: capability and controllability are diverging, and the harness is where they meet.</p>
+<p>Meanwhile the meter is running. Anthropic&rsquo;s Fable pricing is about to jump, triggering a small gold rush of &ldquo;use it while you can&rdquo; — Simon Willison shipped an entire <a href="https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/">sqlite-utils 4.0 release cycle</a> largely written by Fable for about $150. Meta reportedly <a href="https://mlq.ai/news/meta-caps-internal-ai-token-spending-after-costs-approach-billions-in-2026/">capped internal token spending</a> after costs neared the billions. Course creators are watching revenue halve. The era of treating inference as free is closing.</p>
+<p>And underneath the noise, the research frontier is quietly shifting from one-shot generation toward <em>loops</em>: memory and skills treated as things a model learns to do well, not just context you stuff into a prompt. That&rsquo;s the part worth watching, because it changes what an &ldquo;agent&rdquo; is.</p>
+<h2>Themes</h2>
+<h3>Trained to the harness</h3>
+<p>The clearest new idea of the week is that models are now shaped by the tools they were trained to use, and that shaping doesn&rsquo;t generalize. <a href="https://simonwillison.net/2026/Jul/4/better-models-worse-tools/">Better Models: Worse Tools</a> is the essential read — newer, stronger Claude models misuse custom edit tools that older ones handled fine, most plausibly because RL has tuned them to Claude Code&rsquo;s own search-and-replace edit format. The implication for anyone building a harness is uncomfortable: you may need to mimic the model vendor&rsquo;s tool schemas rather than design your own. Seen through this lens, the <a href="https://github.com/openai/codex/issues/30364">GPT-5.5 Codex degradation report</a> (327 points) and the popularity of the <a href="https://blog.okturtles.org/2026/07/short-leash-ai-method/">short-leash method for beating Fable</a> (195 points) are the same story from the operator&rsquo;s side: the more the model is optimized for a proprietary loop, the more everyone else has to babysit it.</p>
+<p>Go deeper: <a href="https://simonwillison.net/2026/Jul/4/better-models-worse-tools/">Better Models: Worse Tools</a> · <a href="https://github.com/openai/codex/issues/30364">The Codex reasoning-token issue</a> · <a href="https://blog.okturtles.org/2026/07/short-leash-ai-method/">The short-leash method</a></p>
+<h3>Memory and skills become trainable</h3>
+<p>Last edition&rsquo;s &ldquo;software factory&rdquo; argument was about org charts. The papers landing this week are about the primitive underneath it: agents that <em>learn how to remember and how to use skills</em>, rather than being handed static context. <a href="https://huggingface.co/papers/2607.01224">AutoMem</a> treats memory management as a trainable metacognitive skill — the model decides what to encode and retrieve, with file operations promoted to first-class actions. <a href="https://huggingface.co/papers/2607.02255">AgenticSTS</a> (46 upvotes) and <a href="https://huggingface.co/papers/2607.01874">SkillCoach</a> push the same direction from the evaluation side: bounded-memory contracts and self-evolving rubrics that expose failures which final-answer accuracy hides. <a href="https://huggingface.co/papers/2607.02440">EvoPolicyGym</a> isolates &ldquo;autonomous policy evolution&rdquo; as its own measurable thing.</p>
+<p>This is the research backbone under Latent Space&rsquo;s <a href="https://www.latent.space/p/autoresearch-introspection">autoresearch and self-improving loops</a> coverage, and it dovetails with a practical tip Simon picked up from the Claude Code team: stop dictating <em>how</em> the agent works and let it <a href="https://simonwillison.net/2026/Jul/3/judgement/">use its own judgement</a> about when to write tests or delegate to a cheaper model. The through-line — from &ldquo;The Log is the Agent&rdquo; to skill rubrics — is that the agent&rsquo;s own trajectory is becoming the training signal. Early, but this is clearly landing.</p>
+<p>Go deeper: <a href="https://huggingface.co/papers/2607.01224">AutoMem</a> · <a href="https://huggingface.co/papers/2607.02255">AgenticSTS</a> · <a href="https://huggingface.co/papers/2607.01874">SkillCoach</a> · <a href="https://simonwillison.net/2026/Jul/3/judgement/">Fable&rsquo;s judgement</a> · <a href="https://arxiv.org/abs/2605.21997">The Log is the Agent</a></p>
+<h3>The meter is running</h3>
+<p>The economics stopped being abstract this week. Simon&rsquo;s Fable-authored <a href="https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/">sqlite-utils release</a> is a delight — Fable caught five genuine release-blocker bugs, including a <code>delete_where()</code> that never commits and poisons the connection — but the framing is telling: he&rsquo;s front-loading work <em>before the price rises</em>, and Jesse Vincent&rsquo;s advice is to have Fable delegate small tasks to cheaper models to conserve tokens. When the best coding help on the market has a burn rate you actively manage, cost has become an engineering constraint. Meta&rsquo;s reported <a href="https://mlq.ai/news/meta-caps-internal-ai-token-spending-after-costs-approach-billions-in-2026/">token cap</a> says the same at hyperscaler scale.</p>
+<p>The demand side is contracting too. Josh Comeau reports course <a href="https://simonwillison.net/2026/Jul/3/josh-w-comeau/">revenue down 50%+</a> — partly because LLMs now tutor for free off scraped work, partly because learners doubt dev jobs will exist to justify the study. And Elena Verna&rsquo;s <a href="https://www.elenaverna.com/p/please-stop-the-ai-confidence-theater">&ldquo;please stop the AI confidence theater&rdquo;</a> (233 points) names a related rot: overconfident AI output crowding out honest uncertainty.</p>
+<p>Go deeper: <a href="https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/">sqlite-utils 4.0, written by Fable for $149.25</a> · <a href="https://mlq.ai/news/meta-caps-internal-ai-token-spending-after-costs-approach-billions-in-2026/">Meta caps internal token spend</a> · <a href="https://simonwillison.net/2026/Jul/3/josh-w-comeau/">Josh Comeau on collapsing course sales</a> · <a href="https://www.elenaverna.com/p/please-stop-the-ai-confidence-theater">The AI confidence theater</a></p>
+<h3>The right to run local intelligence — an update</h3>
+<p>The &ldquo;local keeps closing the gap&rdquo; thread we&rsquo;ve tracked took a political turn. <a href="https://righttointelligence.org/">righttointelligence.org</a> hit 544 points on HN — the highest signal of the period — arguing for a legal right to run models on your own hardware. That framing lands harder now that the capability is genuinely there: <a href="https://www.reddit.com/r/LocalLLaMA/comments/1unyvnz/longcat_20_16t_48b_active_weights_are_now_open/">longcat 2.0</a>, a 1.6T-parameter (≈48B active) model, is now open under MIT. On the practical side, the community is getting sharper about what actually matters: a <a href="https://www.reddit.com/r/LocalLLaMA/comments/1unrse9/i_benchmarked_13_models_at_65k128k_context_to/">long-context benchmark of 13 models</a> argues that for agentic workloads <em>prefill dominates and KV head count beats parameter count</em> — a useful corrective to token-generation-speed obsession. And fine-tuning is following inference down to consumer hardware: <a href="https://www.reddit.com/r/MachineLearning/comments/1unl62q/if_your_gpu_can_run_inference_it_should_be_able/">USAF</a> fine-tunes Qwen3-30B-A3B on a 12GB AMD card by training sparse experts and the router.</p>
+<p>Go deeper: <a href="https://righttointelligence.org/">Right to Intelligence</a> · <a href="https://www.reddit.com/r/LocalLLaMA/comments/1unyvnz/longcat_20_16t_48b_active_weights_are_now_open/">longcat 2.0 goes MIT</a> · <a href="https://www.reddit.com/r/LocalLLaMA/comments/1unrse9/i_benchmarked_13_models_at_65k128k_context_to/">What actually matters at 128K context</a> · <a href="https://www.reddit.com/r/MachineLearning/comments/1unl62q/if_your_gpu_can_run_inference_it_should_be_able/">USAF sparse MoE fine-tuning</a></p>
+<h2>Radar</h2>
+<ul>
+<li><strong><a href="https://www.reddit.com/r/LocalLLaMA/comments/1unyvnz/longcat_20_16t_48b_active_weights_are_now_open/">longcat 2.0</a></strong> — 1.6T-parameter (~48B active) weights now open under MIT; the open-weights ceiling keeps rising.</li>
+<li><strong><a href="https://github.com/facebook/astryx">facebook/astryx</a></strong> — An open, fully-customizable, &ldquo;agent-ready&rdquo; design system; 4,760 stars this week and a clear signal that UI libraries are being rebuilt for agents to consume.</li>
+<li><strong><a href="https://github.com/browser-use/browser-use">browser-use</a></strong> — Makes websites navigable for AI agents (1,805 stars this week); the plumbing for the &ldquo;agents drive the browser&rdquo; era.</li>
+<li><strong><a href="https://github.com/vercel-labs/deepsec">vercel-labs/deepsec</a></strong> — A security harness that hunts codebase vulnerabilities using coding agents (1,801 stars); agents pointed at defense, not just feature work.</li>
+<li><strong><a href="https://github.com/ChromeDevTools/chrome-devtools-mcp">chrome-devtools-mcp</a></strong> — Official Chrome DevTools exposed as an MCP server for coding agents (1,213 stars); first-party tooling for agent-driven debugging.</li>
+<li><strong><a href="https://github.com/allenai/olmocr">allenai/olmocr</a></strong> — Toolkit for linearizing PDFs into clean LLM training data (1,229 stars); the unglamorous but load-bearing work of dataset prep.</li>
+<li><strong><a href="https://simonwillison.net/2026/Jul/4/building-a-world-map-with-only-500-bytes/">Building a World Map with only 500 bytes</a></strong> — Codex-assisted trick generating an ASCII world map from 445 bytes via <code>fetch()</code> on a <code>data:</code> URI piped through <code>DecompressionStream</code>; a lovely reminder of what&rsquo;s still worth hand-crafting.</li>
+<li><strong><a href="https://www.producthunt.com/products/retrace-2">Retrace</a></strong> — Debug AI agents by replaying and forking runs; the observability layer for non-deterministic loops is starting to form.</li>
+<li><strong><a href="https://github.com/Trystan-SA/claude-design-system-prompt">Claude Design System Prompt</a></strong> — A shared system prompt for consistent Claude-generated UI (83 points); prompt artifacts are becoming reusable infrastructure.</li>
+</ul>
+<h2>Don&rsquo;t Miss</h2>
+<ul>
+<li><strong><a href="https://simonwillison.net/2026/Jul/2/understand-to-participate/">Understand to participate</a></strong> — Geoffrey Litt&rsquo;s AIE framing on avoiding &ldquo;cognitive debt&rdquo; as agents write ever-larger changes: you have to understand the code deeply enough to remain a creative participant, not a rubber stamp. The counterweight to the software-factory hype, and the mental model most worth internalizing this week.</li>
+<li><strong><a href="https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/">Google DeepMind × A24</a></strong> — A frontier lab and an arthouse film studio announce a research partnership. Thin on detail, but a notable signal about where generative video and creative tooling are heading — worth a bookmark before the substance lands.</li>
+<li><strong><a href="https://japannews.yomiuri.co.jp/science-nature/technology/20260306-314930/">Japan&rsquo;s top court: AI can&rsquo;t be a patent inventor</a></strong> — 395 points. Another jurisdiction drawing the line on machine authorship; the IP scaffolding around AI-generated work is hardening, and it matters for anyone shipping agent-built artifacts.</li>
+</ul>]]></content:encoded>
+</item>
 <item>
 <title>The Glass Lifts</title>
-<link>https://panel1382.github.io/ai-update/editions/2026-07-01.html</link>
-<guid isPermaLink="true">https://panel1382.github.io/ai-update/editions/2026-07-01.html</guid>
+<link>https://panel.github.io/ai-update/editions/2026-07-01.html</link>
+<guid isPermaLink="true">https://panel.github.io/ai-update/editions/2026-07-01.html</guid>
 <pubDate>Wed, 01 Jul 2026 00:00:00 +0000</pubDate>
 <description>Commerce reversed itself: the two most capable models of the month are back online, and Anthropic shipped a deliberately weaker sibling to slip through the door. Meanwhile the AI Engineer World's Fair spent the week arguing that the org chart is melting into a "software factory."</description>
 <content:encoded><![CDATA[<h1>The Glass Lifts</h1>
@@ -60,8 +107,8 @@
 </item>
 <item>
 <title>The Frontier Behind Glass</title>
-<link>https://panel1382.github.io/ai-update/editions/2026-06-28.html</link>
-<guid isPermaLink="true">https://panel1382.github.io/ai-update/editions/2026-06-28.html</guid>
+<link>https://panel.github.io/ai-update/editions/2026-06-28.html</link>
+<guid isPermaLink="true">https://panel.github.io/ai-update/editions/2026-06-28.html</guid>
 <pubDate>Sun, 28 Jun 2026 00:00:00 +0000</pubDate>
 <description>The two biggest models of the year shipped this week — and almost no one is allowed to use them. Meanwhile the models you can run on a desk quietly crossed the line into real work.</description>
 <content:encoded><![CDATA[<h1>The Frontier Behind Glass</h1>
@@ -110,8 +157,8 @@
 </item>
 <item>
 <title>The Pentester in the Loop</title>
-<link>https://panel1382.github.io/ai-update/editions/2026-06-24.html</link>
-<guid isPermaLink="true">https://panel1382.github.io/ai-update/editions/2026-06-24.html</guid>
+<link>https://panel.github.io/ai-update/editions/2026-06-24.html</link>
+<guid isPermaLink="true">https://panel.github.io/ai-update/editions/2026-06-24.html</guid>
 <pubDate>Wed, 24 Jun 2026 00:00:00 +0000</pubDate>
 <description>Both frontier labs shipped security products the same week a paper confirmed their models can't tell their own thoughts from an attacker's. Meanwhile Claude moved into your Slack channels — and the bill for all of it came due.</description>
 <content:encoded><![CDATA[<h1>The Pentester in the Loop</h1>
@@ -166,8 +213,8 @@
 </item>
 <item>
 <title>The Weights We Don't Own</title>
-<link>https://panel1382.github.io/ai-update/editions/2026-06-21.html</link>
-<guid isPermaLink="true">https://panel1382.github.io/ai-update/editions/2026-06-21.html</guid>
+<link>https://panel.github.io/ai-update/editions/2026-06-21.html</link>
+<guid isPermaLink="true">https://panel.github.io/ai-update/editions/2026-06-21.html</guid>
 <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
 <description>GLM-5.2 makes the open frontier real the same week a government switches off a model thousands depend on. The two stories are the same story.</description>
 <content:encoded><![CDATA[<h1>The Weights We Don&rsquo;t Own</h1>
@@ -217,8 +264,8 @@
 </item>
 <item>
 <title>Open Weights Is Back</title>
-<link>https://panel1382.github.io/ai-update/editions/2026-06-17.html</link>
-<guid isPermaLink="true">https://panel1382.github.io/ai-update/editions/2026-06-17.html</guid>
+<link>https://panel.github.io/ai-update/editions/2026-06-17.html</link>
+<guid isPermaLink="true">https://panel.github.io/ai-update/editions/2026-06-17.html</guid>
 <pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
 <description>GLM-5.2 lands as the best open model in the world the same week Washington bans a frontier lab's coding model for being good at fixing code. The center of gravity is shifting, and it's not subtle.</description>
 <content:encoded><![CDATA[<h1>Open Weights Is Back</h1>
@@ -268,8 +315,8 @@
 </item>
 <item>
 <title>The Weekend the Frontier Got Nationalized</title>
-<link>https://panel1382.github.io/ai-update/editions/2026-06-14.html</link>
-<guid isPermaLink="true">https://panel1382.github.io/ai-update/editions/2026-06-14.html</guid>
+<link>https://panel.github.io/ai-update/editions/2026-06-14.html</link>
+<guid isPermaLink="true">https://panel.github.io/ai-update/editions/2026-06-14.html</guid>
 <pubDate>Sun, 14 Jun 2026 00:00:00 +0000</pubDate>
 <description>Anthropic shipped the best coding model anyone had seen, then the US government switched it off — a reminder that model access is now an instrument of state, not a SaaS contract.</description>
 <content:encoded><![CDATA[<h1>The Weekend the Frontier Got Nationalized</h1>
@@ -319,8 +366,8 @@
 </item>
 <item>
 <title>Beeg Model Smell</title>
-<link>https://panel1382.github.io/ai-update/editions/2026-06-10.html</link>
-<guid isPermaLink="true">https://panel1382.github.io/ai-update/editions/2026-06-10.html</guid>
+<link>https://panel.github.io/ai-update/editions/2026-06-10.html</link>
+<guid isPermaLink="true">https://panel.github.io/ai-update/editions/2026-06-10.html</guid>
 <pubDate>Wed, 10 Jun 2026 00:00:00 +0000</pubDate>
 <description>Anthropic dropped Claude Fable 5 and the people who build coding agents for a living are uninstalling their IDEs again — meanwhile the labs are openly fighting about whether the frontier should be allowed to improve itself.</description>
 <content:encoded><![CDATA[<h1>Beeg Model Smell</h1>
