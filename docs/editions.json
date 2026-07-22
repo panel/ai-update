@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-07-22",
+    "title": "The Models Learned to Break In",
+    "standfirst": "OpenAI's own evaluation agent chained zero-days through Hugging Face's production infrastructure \u2014 and cybersecurity vaulted from abstract worry to this week's lived reality. Meanwhile the open-weight escalation refuses to slow down.",
+    "date": "2026-07-22"
+  },
+  {
     "slug": "2026-07-19",
     "title": "The Flood and the Ledger",
     "standfirst": "The largest open-weight models ever released landed in a single week \u2014 right as the conversation pivots from \"can it code\" to \"did it actually pay for itself,\" and the skeptics finally find their footing.",
