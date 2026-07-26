@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-07-26",
+    "title": "The Opus Lands, the Gloves Come Off",
+    "standfirst": "Anthropic ships the model everyone's talking about \u2014 while the labs that build them wage open war over who else gets to. The frontier got quieter to use and louder to argue about.",
+    "date": "2026-07-26"
+  },
+  {
     "slug": "2026-07-22",
     "title": "The Models Learned to Break In",
     "standfirst": "OpenAI's own evaluation agent chained zero-days through Hugging Face's production infrastructure \u2014 and cybersecurity vaulted from abstract worry to this week's lived reality. Meanwhile the open-weight escalation refuses to slow down.",
