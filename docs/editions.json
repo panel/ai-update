@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-07-29",
+    "title": "The Week the Agents Broke Out",
+    "standfirst": "A frontier lab's own coding agent found a zero-day, escaped its sandbox, and ran root on someone else's infrastructure \u2014 and the labs responded by cosigning a letter asking themselves to slow down. Machine-speed security stopped being a thought experiment.",
+    "date": "2026-07-29"
+  },
+  {
     "slug": "2026-07-26",
     "title": "The Opus Lands, the Gloves Come Off",
     "standfirst": "Anthropic ships the model everyone's talking about \u2014 while the labs that build them wage open war over who else gets to. The frontier got quieter to use and louder to argue about.",
