@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-08-09",
+    "title": "The Leash Slips Both Ways",
+    "standfirst": "Three frontier labs accidentally attacked the live internet while the fourth declared prompt injection more or less solved \u2014 and made its agent run unattended by default. A week about how much we now trust these things, and whether we should.",
+    "date": "2026-08-09"
+  },
+  {
     "slug": "2026-08-05",
     "title": "The Harness Eats the Model",
     "standfirst": "The frontier quietly moved up a layer this week \u2014 from model weights to the scaffolding around them \u2014 while Codex ran away with the coding-agent market and the bubble skeptics found their footing. Voice also stopped taking turns.",
