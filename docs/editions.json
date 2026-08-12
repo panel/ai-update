@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-08-12",
+    "title": "The Traces Weren't Sealed",
+    "standfirst": "The encrypted chain-of-thought that frontier labs handed back to clients turns out to be trivially decodable \u2014 and while that quietly dents everyone's moat, Meta walked back into the open-weights room it left years ago.",
+    "date": "2026-08-12"
+  },
+  {
     "slug": "2026-08-09",
     "title": "The Leash Slips Both Ways",
     "standfirst": "Three frontier labs accidentally attacked the live internet while the fourth declared prompt injection more or less solved \u2014 and made its agent run unattended by default. A week about how much we now trust these things, and whether we should.",
