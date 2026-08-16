@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-08-16",
+    "title": "The Harness Ate the Model",
+    "standfirst": "A flood of new models \u2014 Gemini 3.7 Flash, GPT-5.6, DeepSeek V4 Pro, Qwen 3.8, GLM-5.3, Grok 4.6 \u2014 but the week's real signal is that the scaffolding around the model is quietly becoming the thing worth building. Also: watermarks ship and get debunked in the same seven days.",
+    "date": "2026-08-16"
+  },
+  {
     "slug": "2026-08-12",
     "title": "The Traces Weren't Sealed",
     "standfirst": "The encrypted chain-of-thought that frontier labs handed back to clients turns out to be trivially decodable \u2014 and while that quietly dents everyone's moat, Meta walked back into the open-weights room it left years ago.",
