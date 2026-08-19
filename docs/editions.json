@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-08-19",
+    "title": "The Meter Is Running",
+    "standfirst": "The model flood recedes and the invoice arrives: inference costs are spiking, memory prices are up 500%, and routing just became a $7B business. Meanwhile the security window everyone was warned about is here.",
+    "date": "2026-08-19"
+  },
+  {
     "slug": "2026-08-16",
     "title": "The Harness Ate the Model",
     "standfirst": "A flood of new models \u2014 Gemini 3.7 Flash, GPT-5.6, DeepSeek V4 Pro, Qwen 3.8, GLM-5.3, Grok 4.6 \u2014 but the week's real signal is that the scaffolding around the model is quietly becoming the thing worth building. Also: watermarks ship and get debunked in the same seven days.",
