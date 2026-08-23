@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-08-23",
+    "title": "Frontier in a Homelab",
+    "standfirst": "The open models just crossed the line where buying your own GPUs becomes a rational business decision \u2014 and while everyone stares at the hardware, the agent harness is quietly dissolving into skills.",
+    "date": "2026-08-23"
+  },
+  {
     "slug": "2026-08-19",
     "title": "The Meter Is Running",
     "standfirst": "The model flood recedes and the invoice arrives: inference costs are spiking, memory prices are up 500%, and routing just became a $7B business. Meanwhile the security window everyone was warned about is here.",
