@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-08-26",
+    "title": "The Great Re-Sorting",
+    "standfirst": "The free lunch is over, so the industry did the rational thing: it started routing work by cost, rebuilding the harness as an optimizable artifact, and writing its own evals \u2014 while open weights quietly made \"good enough\" cheaper again.",
+    "date": "2026-08-26"
+  },
+  {
     "slug": "2026-08-23",
     "title": "Frontier in a Homelab",
     "standfirst": "The open models just crossed the line where buying your own GPUs becomes a rational business decision \u2014 and while everyone stares at the hardware, the agent harness is quietly dissolving into skills.",
