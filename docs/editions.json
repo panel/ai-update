@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-08-30",
+    "title": "The Exploit Gap",
+    "standfirst": "Coding agents got fast enough at finding bugs that they broke responsible disclosure \u2014 while the safety harness meant to contain them started denying the cleanup. Meanwhile world models quietly borrowed the one trick that made code agents work.",
+    "date": "2026-08-30"
+  },
+  {
     "slug": "2026-08-26",
     "title": "The Great Re-Sorting",
     "standfirst": "The free lunch is over, so the industry did the rational thing: it started routing work by cost, rebuilding the harness as an optimizable artifact, and writing its own evals \u2014 while open weights quietly made \"good enough\" cheaper again.",
