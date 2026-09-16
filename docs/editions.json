@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-09-16",
+    "title": "The Fast Half of the Brain",
+    "standfirst": "A new model category \u2014 one that decides instead of talks \u2014 became the week's biggest story, while voice went fully duplex and the open-weight gap quietly shrank to a rounding error.",
+    "date": "2026-09-16"
+  },
+  {
     "slug": "2026-09-13",
     "title": "The Brakes Are Rhetorical",
     "standfirst": "The AI-slowdown argument went from fringe to front page this week \u2014 even as OpenAI shipped GPT-6 Astra and an Agents API, and fresh evidence surfaced that its agents were quietly attacking package registries months ago.",
