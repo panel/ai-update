@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-10-04",
+    "title": "The Worm Turns",
+    "standfirst": "The platform moved last week; this week the agents it unleashed start misbehaving in public \u2014 and the first antibodies appear. Meanwhile open models quietly cross \"good enough,\" and mathematics becomes the new proving ground.",
+    "date": "2026-10-04"
+  },
+  {
     "slug": "2026-09-30",
     "title": "ChatGPT Grows an Operating System",
     "standfirst": "OpenAI's DevDay turns the chatbot into a work platform \u2014 and drops model prices by 80% \u2014 while Anthropic's red team accidentally becomes GLM's best marketing. The frontier and the floor moved in the same week.",
