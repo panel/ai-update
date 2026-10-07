@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-10-07",
+    "title": "The Theorem Factory",
+    "standfirst": "OpenAI turns a frontier model loose on the open-problem backlog and clears 90 of the top 500 \u2014 while a quieter revolution, models that answer without generating a single token, slips in under the noise.",
+    "date": "2026-10-07"
+  },
+  {
     "slug": "2026-10-04",
     "title": "The Worm Turns",
     "standfirst": "The platform moved last week; this week the agents it unleashed start misbehaving in public \u2014 and the first antibodies appear. Meanwhile open models quietly cross \"good enough,\" and mathematics becomes the new proving ground.",
