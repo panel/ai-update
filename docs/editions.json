@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-10-11",
+    "title": "The Blast Radius",
+    "standfirst": "This was the week agents stopped being a demo and started filing paperwork, tipping off police, and \u2014 elsewhere \u2014 draining banks. The autonomy we've been building toward arrived with a mess attached.",
+    "date": "2026-10-11"
+  },
+  {
     "slug": "2026-10-07",
     "title": "The Theorem Factory",
     "standfirst": "OpenAI turns a frontier model loose on the open-problem backlog and clears 90 of the top 500 \u2014 while a quieter revolution, models that answer without generating a single token, slips in under the noise.",
