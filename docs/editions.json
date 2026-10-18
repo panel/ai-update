@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-10-18",
+    "title": "The Verification Turn",
+    "standfirst": "As the agents churn out ever more code, the hard question has quietly migrated from generation to verification \u2014 who reads it, who trusts it, who measures it against real work \u2014 while US open weights came roaring back in a single week.",
+    "date": "2026-10-18"
+  },
+  {
     "slug": "2026-10-14",
     "title": "The Frontier Gets Loud Again",
     "standfirst": "Two new frontier models landed in a single week \u2014 Google clawed its way back and Meta arrived for real \u2014 while a quieter counter-chorus insisted the code all these agents produce isn't actually becoming software.",
