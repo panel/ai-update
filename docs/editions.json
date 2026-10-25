@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-10-25",
+    "title": "The Agent That Doesn't Wait to Be Asked",
+    "standfirst": "Every major lab now ships an always-on personal agent, Agent Skills just became vendor-neutral infrastructure, and the open-weight gap quietly shrank to about a month. The scaffold keeps eating the model.",
+    "date": "2026-10-25"
+  },
+  {
     "slug": "2026-10-21",
     "title": "Shipping Code You Can't Read, in a Supply Chain You Can't Trust",
     "standfirst": "Two stories collided this week: agents are now finding and firing real exploits in the wild, while the trust infrastructure under our package managers quietly cracked \u2014 all as the scaffold around the model, not the model itself, became the thing worth tuning.",
