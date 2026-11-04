@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-11-04",
+    "title": "Sparks in the Weight Space",
+    "standfirst": "The week's hot paper had frontier models reading and rewriting raw neural network weights like source code \u2014 and the coding-agent stack quietly graduated from tooling to infrastructure.",
+    "date": "2026-11-04"
+  },
+  {
     "slug": "2026-11-01",
     "title": "Black October's Hangover",
     "standfirst": "The audit that began last week moved from the labs' balance sheets to the market's \u2014 and to the wires, where the cyber risks everyone warned about finally started drawing blood.",
