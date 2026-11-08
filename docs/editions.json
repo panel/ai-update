@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-11-08",
+    "title": "Recursive Ambition, Wobbling Capital",
+    "standfirst": "AI started writing its own research faster than the market could decide whether to pay for it \u2014 and the week's best reading sits in the gap between those two facts.",
+    "date": "2026-11-08"
+  },
+  {
     "slug": "2026-11-04",
     "title": "Sparks in the Weight Space",
     "standfirst": "The week's hot paper had frontier models reading and rewriting raw neural network weights like source code \u2014 and the coding-agent stack quietly graduated from tooling to infrastructure.",
