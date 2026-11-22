@@ -1,5 +1,11 @@
 [
   {
+    "slug": "2026-11-22",
+    "title": "The Proof Machine",
+    "standfirst": "A claimed proof of the Riemann Hypothesis \u2014 one human, one with Claude \u2014 lands in the same week Anthropic becomes the largest IPO in history and the market promptly swoons. The through-line: AI stopped writing code and started doing science.",
+    "date": "2026-11-22"
+  },
+  {
     "slug": "2026-11-18",
     "title": "The Saturation Point",
     "standfirst": "GPT-6.2 arrived cheaper, more competent, and somehow a little dull \u2014 while the open web kept bleeding traffic and the coding-agent story quietly matured from \"can it write the code\" to \"who on earth reviews it.\"",
